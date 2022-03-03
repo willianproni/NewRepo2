@@ -41,5 +41,45 @@ namespace ProjHospitalCovid
                 Tail = novopreferencial;
             }
         }
+        public void ExibirFilaPreferencial()
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t\t---> Fila Preferencial <---\n");
+            if (FilaPreferencialVazia())
+            {
+                Console.WriteLine("\t\tNenhum Paciente na Fila de Prioridade");
+            }
+            else
+            {
+                Paciente paciente = Head;
+                do
+                {
+                    Console.WriteLine(paciente.ToString());
+                    paciente = paciente.Proximo;
+                } while (paciente != null);
+            }
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public Paciente Pop()
+        {
+            Paciente antigo = Head;
+            if (FilaPreferencialVazia())
+            {
+                return null;
+            }
+            else if (Head.Proximo == null)
+            {
+                Tail = Head = null;
+            }
+            else
+            {
+                Head = Head.Proximo;
+            }
+            antigo.Proximo = null;
+            return antigo;
+        }
+
     }
 }

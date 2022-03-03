@@ -8,23 +8,25 @@ namespace ProjHospitalCovid
 {
     internal class Servicos
     {
-        FilaNormal filanormal = new FilaNormal();
-        FilaPreferencial filapreferencial = new FilaPreferencial();
+        public FilaNormal filanormal = new FilaNormal();
+        public FilaPreferencial filapreferencial = new FilaPreferencial();
+
+
         int cont = 1;
 
         public Paciente CadastrarPaciente()
         {
             //VerificarExistenciaCadastro();
             {
-                Console.WriteLine("Nome do Paciente");
+                Console.WriteLine("\n\t\t--->> Cadastro de Pacientes <---");
+                Console.Write("\n\t\tNome do Paciente: ");
                 string nome = Console.ReadLine();
-                Console.WriteLine("Qual o Sexo do paciente ");
+                Console.Write("\n\t\tQual o Sexo do paciente: ");
                 char sexo = char.Parse(Console.ReadLine());
-                Console.WriteLine("Data de Nascimento: ");
+                Console.Write("\n\t\tData de Nascimento: ");
                 DateTime dataNascimento = DateTime.Parse(Console.ReadLine());
-                Console.WriteLine("Digite o Cpf do Paciente: ");
+                Console.Write("\n\t\tDigite o Cpf do Paciente: ");
                 string cpf = Console.ReadLine();
-
                 return new Paciente(nome, sexo, dataNascimento, cpf);
             }
         }
@@ -41,7 +43,7 @@ namespace ProjHospitalCovid
             }
         }
 
-        public void InserirPacienteNaFila(Paciente paciente)
+       /* public void InserirPacienteNaFila(Paciente paciente)
         {
 
             if (VerificarPreferenciaDeFila(paciente))
@@ -52,49 +54,36 @@ namespace ProjHospitalCovid
             {
                 filanormal.InserirPacienteFilaNormal(paciente);
             }
-        }
+            //armazenar.RegistrarPessoa(paciente);
+        }*/
 
         public void ChamarPacienteTriagem()
         {
-            if (VerificarFilaDeTriagemVazia())
-            {
-                Console.WriteLine("Nenhum Paciente no momento");
-            }
-            else if (filapreferencial.FilaPreferencialVazia())
-            {
-                Console.WriteLine("Sim");
-            }
-            else
-            {
-                if (ContChamadaTriagem())
-                {
-                    Paciente aux = filapreferencial.Head;
-                }
-            }
-
-        }
-
-        public bool VerificarFilaDeTriagemVazia()
-        {
             if (filanormal.FilaNormalVazia() && filapreferencial.FilaPreferencialVazia())
             {
-                return true;
+                Console.WriteLine("Nenhum Paciente esperando!!");
+            }
+            else if (filapreferencial.FilaPreferencialVazia() || ContChamadaTriagem())
+            {
+                Paciente aux = filanormal.Pop();
+                Console.WriteLine(aux.ToString());
             }
             else
             {
-                return false;
+                Paciente aux = filapreferencial.Pop();
+                Console.WriteLine(aux.ToString());
+                cont++;
             }
         }
-
         public bool ContChamadaTriagem()
         {
-            if (cont >= 2)
+            if (cont > 2)
             {
+                cont = 0;
                 return true;
             }
             else
             {
-                cont = 1;
                 return false;
             }
         }
