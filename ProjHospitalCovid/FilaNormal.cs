@@ -10,6 +10,7 @@ namespace ProjHospitalCovid
     {
         public Paciente Head { get; set; }
         public Paciente Tail { get; set; }
+        public FilaNormal Proximo { get; set; }
 
         public FilaNormal()
         {
@@ -28,18 +29,58 @@ namespace ProjHospitalCovid
             }
         }
 
-        public void InserirPacienteFilaNormal(Paciente novopreferencial)
+        public void InserirPacienteFilaNormal(Paciente novonormal)
         {
             if (FilaNormalVazia())
             {
-                Head = novopreferencial;
-                Tail = novopreferencial;
+                Head = novonormal;
+                Tail = novonormal;
             }
             else
             {
-                Tail.Proximo = novopreferencial;
-                Tail = novopreferencial;
+                Tail.Proximo = novonormal;
+                Tail = novonormal;
             }
+        }
+
+        public void ExibirFilaNormal()
+        {
+            Console.Clear();
+            Console.WriteLine("\t\t\t---> Fila Normal <---\n");
+            if (FilaNormalVazia())
+            {
+                Console.WriteLine("\t\tNenhum paciente na Fila Normal");
+            }
+            else
+            {
+                Paciente paciente = Head;
+                do
+                {
+                    Console.WriteLine(paciente.ToString());
+                    paciente = paciente.Proximo;
+                } while (paciente != null);
+            }
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public Paciente Pop()
+        {
+            Paciente antigo = Head;
+            if (FilaNormalVazia())
+            {
+                return null;
+            }
+            else if (Head.Proximo == null)
+            {
+                Tail = Head = null;
+            }
+            else
+            {
+                Head = Head.Proximo;
+            }
+            antigo.Proximo = null;
+            return antigo;
         }
     }
 }
