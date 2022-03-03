@@ -59,18 +59,31 @@ namespace ProjHospitalCovid
 
         public void ChamarPacienteTriagem()
         {
-            Paciente aux = filanormal.Pop();
-            Console.WriteLine(aux.ToString());
+            if (filanormal.FilaNormalVazia() && filapreferencial.FilaPreferencialVazia())
+            {
+                Console.WriteLine("Nenhum Paciente esperando!!");
+            }
+            else if (filapreferencial.FilaPreferencialVazia() || ContChamadaTriagem())
+            {
+                Paciente aux = filanormal.Pop();
+                Console.WriteLine(aux.ToString());
+            }
+            else
+            {
+                Paciente aux = filapreferencial.Pop();
+                Console.WriteLine(aux.ToString());
+                cont++;
+            }
         }
         public bool ContChamadaTriagem()
         {
-            if (cont >= 2)
+            if (cont > 2)
             {
+                cont = 0;
                 return true;
             }
             else
             {
-                cont = 1;
                 return false;
             }
         }
