@@ -6,7 +6,7 @@ namespace ProjHospitalCovid
     {
         static void Main(string[] args)
         {
-            int opcao;
+            int opcao, cont = 1;
             Servicos servicos = new Servicos();
             do
             {
@@ -18,8 +18,15 @@ namespace ProjHospitalCovid
                         Console.WriteLine("Fechando...");
                         break;
                     case 1:
-                        servicos.CadastrarPaciente();
-                        break;  
+                        Console.Clear();
+                        Console.WriteLine($"\tSenha Número {cont}");
+                        cont++;
+                        Console.ReadKey();
+                        servicos.InserirPacienteNaFila(servicos.CadastrarPaciente());
+                        break;
+                    case 3:
+                        servicos.ChamarPacienteTriagem();
+                        break;
                     default:
                         Console.WriteLine("Opção Inválida!");
                         break;
