@@ -21,7 +21,9 @@ namespace ProjHospitalCovid
                         break;
                     case 1:
                         Console.Clear();
-                        Console.WriteLine($"\t\t\tSenha Número {cont}");
+                        Console.WriteLine("##################\n" +
+                                          $"# Senha Número {cont} #\n" +
+                                          "##################");
                         cont++;
                         Paciente paciente = servicos.CadastrarPaciente();
                         if (servicos.VerificarPreferenciaDeFila(paciente))
@@ -56,11 +58,14 @@ namespace ProjHospitalCovid
         }
         public static void Menu()
         {
-            Console.WriteLine("\n[1] - Cadastrar Paciente" +
-                              "\n[2] - Exibir Fila Normal" +
-                              "\n[3] - Exibir Fila Prioridade" +
-                              "\n[4] - Alta em Paciente" +
-                              "\n[0] - Fechar Sistema");
+            Console.WriteLine("\t\t-_-_-_-_-_-_-_Covidário_-_-_-_-_-_-_-");
+            Console.WriteLine("\n\t\t[1] - Cadastrar Paciente" +
+                              "\n\t\t[2] - Exibir Fila Normal" +
+                              "\n\t\t[3] - Exibir Fila Prioridade" +
+                              "\n\t\t[4] - Alta em Paciente" +
+                              "\n\t\t[0] - Fechar Sistema" +
+                              "\n\t\t------------------------------------");
+            Console.Write("\t\tOpção: ");
         }
     }
 }

@@ -56,7 +56,7 @@ namespace ProjHospitalCovid
                 Paciente paciente = Head;
                 do
                 {
-                    Console.WriteLine(paciente.ToString());
+                    Console.WriteLine(paciente.DadosBasicos());
                     paciente = paciente.Proximo;
                 } while (paciente != null);
             }

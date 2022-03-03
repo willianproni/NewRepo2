@@ -14,26 +14,45 @@ namespace ProjHospitalCovid
         public string Cpf { get; set; }
         public int Idade => (DateTime.Now - DataNascimento).Days / 365;
         public Paciente Proximo { get; set; }
+        public Triagem Triagem { get; set; }
 
         public Paciente()
         {
-
+            Triagem = new Triagem();
         }
 
-        public Paciente(string nome, char sexo, DateTime datanascimento, string cpf)
+        public Paciente(string nome, char sexo, DateTime dataNascimento, string cpf)
         {
             Nome = nome;
             Sexo = sexo;
-            DataNascimento = datanascimento;
+            DataNascimento = dataNascimento;
             Cpf = cpf;
+            Triagem = new Triagem();
         }
 
-        public override string ToString()
+        public Paciente(string nome, char sexo, DateTime dataNascimento, string cpf, Triagem triagem)
+        {
+            Nome = nome;
+            Sexo = sexo;
+            DataNascimento = dataNascimento;
+            Cpf = cpf;
+            Triagem = new Triagem();
+        }
+
+        public string DadosBasicos()
+        {
+            return $"\nNome: {Nome}" +
+                   $"\nSexo {Sexo}" +
+                   $"\nData Nascimento {DataNascimento.ToString("dd/MM/yyyy")}" +
+                   $"\nCpf: {Cpf}"; 
+        }
+        public string DadosCompletos()
         {
             return $"\nNome: {Nome}" +
                    $"\nSexo {Sexo}" +
                    $"\nData Nascimento {DataNascimento}" +
-                   $"\nCpf: {Cpf}"; 
+                   $"\nCpf: {Cpf}" +
+                   $"\nDados Triagem: {Triagem.DadosTriagem()}";
         }
     }
 }
