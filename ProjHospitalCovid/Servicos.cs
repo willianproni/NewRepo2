@@ -30,7 +30,7 @@ namespace ProjHospitalCovid
                 Console.Write("\n\t\tQual o Sexo do paciente\n\t\tM - Masculino\n\t\tF - Feminino\n");
                 Console.Write("\t\tSexo: ");
                 char sexo = char.Parse(Console.ReadLine().ToUpper());
-                Console.Write("\n\t\tData de Nascimento: ");
+                Console.Write("\n\t\tData de Nascimento (dd/mm/yyyy): ");
                 DateTime dataNascimento = DateTime.Parse(Console.ReadLine());
                 Console.Write("\n\t\tDigite o Cpf do Paciente: ");
                 string cpf = Console.ReadLine();
@@ -143,7 +143,7 @@ namespace ProjHospitalCovid
             Console.Write("\n\tBatimentos Cardíacos do Paciente: ");
             paciente.Triagem.Batimentos = int.Parse(Console.ReadLine());
 
-            Console.Write("\n\tPossui Comorbidade: ");
+            Console.Write("\n\tPossui Comorbidade (s/n): ");
             string possuiComorbidade = Console.ReadLine();
             paciente.Triagem.PossuiComorbidade = possuiComorbidade == "sim" || possuiComorbidade == "s" ? true : false;
             if (paciente.Triagem.PossuiComorbidade == true)
@@ -229,11 +229,11 @@ namespace ProjHospitalCovid
                 else if (paciente.Triagem.PacienteVaiFazerTesteCovid())
                 {
                     Console.WriteLine("Realizou o Teste");
-                    Console.Write("Positivo ou Negativo (P ou N)");
+                    Console.Write("\tPositivo ou Negativo (P ou N): ");
                     string resultado = Console.ReadLine().ToUpper();
                     if (ResultadoRetornouPositivo(resultado))
                     {
-                        Console.WriteLine("O paciente vai ser Internado? : ");
+                        Console.Write("\tO paciente vai ser Internado? (s/n): ");
                         char internar = char.Parse(Console.ReadLine().ToUpper());
                         if (internar == 'S')
                         {
@@ -275,7 +275,7 @@ namespace ProjHospitalCovid
 
         public bool ResultadoRetornouPositivo(string resultado)
         {
-            if (resultado == "P")
+            if (resultado == "P" || resultado == "POSITIVO")
             {
                 return true;
             }
