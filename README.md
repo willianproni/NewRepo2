@@ -41,5 +41,8 @@ Mostrar Pacientes Internandos
 <li>
   Salvar as Informações em Arquivos.
   </li>
+  
+  <br>
+  <n>Observação: Algums tratamentos de erros não foram feitas, então dependendo o que for digitado pelo usuário podem acabar quebrando o sistema.</n>
  
   
