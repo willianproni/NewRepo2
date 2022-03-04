@@ -46,6 +46,9 @@ namespace ProjHospitalCovid
                         servicos.ChamarPacienteTriagem();
                         break;
                     case 3:
+                        //servicos.AltaEmPacienteInternado(); //Esta entrando em Loop (Já sei arrumar)!
+                        break;
+                    case 4:
                         do
                         {
                             MenuLista();
@@ -87,7 +90,8 @@ namespace ProjHospitalCovid
             Console.WriteLine("\t\t-_-_-_-_-_-_-_Covidário_-_-_-_-_-_-_-");
             Console.WriteLine("\n\t\t[1] - Cadastrar Paciente" +
                               "\n\t\t[2] - Chamar Paciente para Triagem" +
-                              "\n\t\t[3] - Verificar Pacietes por Listas e Filas" +
+                              "\n\t\t[3] - Realizar Alta de Paciente" +
+                              "\n\t\t[4] - Verificar Pacietes por Listas e Filas" +
                               "\n\t\t[0] - Fechar Sistema" +
                               "\n\t\t------------------------------------");
             Console.Write("\t\tOpção: ");

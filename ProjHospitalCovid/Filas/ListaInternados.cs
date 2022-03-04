@@ -45,12 +45,22 @@ namespace ProjHospitalCovid.Filas
 
         public void ExibirPacientesInternados()
         {
+            if (ListaInternadosVazia())
+            {
+                Console.WriteLine("Nenhum Paciente internado Que bom :)");
+            }
             Paciente paciente = Head;
             do
             {
                 Console.WriteLine(paciente.DadosCompletos());
                 paciente = paciente.Proximo;
             } while (paciente != null);
+        }
+
+        public void Alta(Paciente aux)
+        {
+            aux = null;
+
         }
     }
 }

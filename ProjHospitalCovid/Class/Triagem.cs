@@ -16,10 +16,12 @@ namespace ProjHospitalCovid
         public bool PossuiComorbidade { get; set; }
         public int DiasSintomas { get; set; }
         public Sintomas Sintomas { get; set; }
+        public Comorbidade Comorbidade { get; set; }
 
         public Triagem()
         {
             Sintomas = new Sintomas();
+            Comorbidade = new Comorbidade();
         }
 
         public bool PacienteVaiFazerTesteCovid()

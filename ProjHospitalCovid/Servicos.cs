@@ -102,6 +102,34 @@ namespace ProjHospitalCovid
             }
         }
 
+        public void AltaEmPacienteInternado()
+        {
+            if (ListaInternados.ListaInternadosVazia())
+            {
+                Console.WriteLine("Nenhum paciente Internado");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Digite o CPF do Paciente: ");
+                string cpf = Console.ReadLine();
+
+                Paciente aux = ListaInternados.Head;
+                do
+                {
+                    if (aux.Cpf.CompareTo(cpf) == 0)
+                    {
+                        ListaInternados.Alta(aux);
+                        leitosVerifica.LeitosOcupados++;
+                    }
+                    else
+                    {
+                        aux = aux.Proximo;
+                    }
+                } while (aux != null);
+            }
+        }
+
         public Paciente EntradaDadosTriagem(Paciente paciente)
         {
             Console.Write("\n\tPressão do Paciente: ");
@@ -118,6 +146,34 @@ namespace ProjHospitalCovid
             Console.Write("\n\tPossui Comorbidade: ");
             string possuiComorbidade = Console.ReadLine();
             paciente.Triagem.PossuiComorbidade = possuiComorbidade == "sim" || possuiComorbidade == "s" ? true : false;
+            if (paciente.Triagem.PossuiComorbidade == true)
+            {
+                Console.WriteLine("\n\t--->> Comorbidades Prejudiciais Covid <<---");
+
+                Console.Write("\t[1] - Diabetes ( s/n ): ");
+                string diabetes = Console.ReadLine();
+                paciente.Triagem.Comorbidade.Diabetes = diabetes == "s" ? true : false;
+
+                Console.Write("\t[2] - Hipertensão ( s/n ): ");
+                string hipertensao = Console.ReadLine();
+                paciente.Triagem.Comorbidade.Diabetes = hipertensao == "s" ? true : false;
+
+                Console.Write("\t[3] - Câncer ( s/n ): ");
+                string cancer = Console.ReadLine();
+                paciente.Triagem.Comorbidade.Diabetes = cancer == "s" ? true : false;
+
+                Console.Write("\t[4] - Doenças Cardiovasculares ( s/n ): ");
+                string doencacardiovascular = Console.ReadLine();
+                paciente.Triagem.Comorbidade.Diabetes = doencacardiovascular == "s" ? true : false;
+
+                Console.Write("\t[5] - Doenças Pulmonares ( s/n ): ");
+                string doencapulmao = Console.ReadLine();
+                paciente.Triagem.Comorbidade.Diabetes = doencapulmao == "s" ? true : false;
+
+                Console.Write("\t[6] - Neurológicos ( s/n ): ");
+                string neurologicos = Console.ReadLine();
+                paciente.Triagem.Comorbidade.Diabetes = neurologicos == "s" ? true : false;
+            }
 
             Console.Write("\n\tSaturação do Paciente: ");
             paciente.Triagem.Saturacao = int.Parse(Console.ReadLine());
@@ -128,25 +184,25 @@ namespace ProjHospitalCovid
             paciente.Triagem.DiasSintomas = int.Parse(Console.ReadLine());
             if (VerificarQuantidadeDiasSintomas(paciente.Triagem.DiasSintomas))
             {
-                Console.WriteLine("--->> Sintomas do paciente <<---");
+                Console.WriteLine("\n\t--->> Sintomas do paciente <<---");
 
-                Console.Write("[1] -  Falta de Ar ( s/n ): ");
+                Console.Write("\t[1] - Falta de Ar ( s/n ): ");
                 string faltaAr = Console.ReadLine();
                 paciente.Triagem.Sintomas.FaltaAr = faltaAr == "s" ? true : false;
 
-                Console.Write("[2] -  Dor no Peito ( s/n ): ");
+                Console.Write("\t[2] - Dor no Peito ( s/n ): ");
                 string dorPeito = Console.ReadLine();
                 paciente.Triagem.Sintomas.DorPeito = dorPeito == "s" ? true : false;
 
-                Console.Write("[3] - Perda Motora ( s/n ): ");
+                Console.Write("\t[3] - Perda Motora ( s/n ): ");
                 string perdaMotora = Console.ReadLine();
                 paciente.Triagem.Sintomas.PerdaMotora = perdaMotora == "s" ? true : false;
 
-                Console.Write("[4] - Perda Paladar ( s/n ): ");
+                Console.Write("\t[4] - Perda Paladar ( s/n ): ");
                 string perdaPaladar = Console.ReadLine();
                 paciente.Triagem.Sintomas.PercaPaladar = perdaPaladar == "s" ? true : false;
 
-                Console.Write("[5] - Perda Olfato ( s/n ): ");
+                Console.Write("\t[5] - Perda Olfato ( s/n ): ");
                 string perdaOlfato = Console.ReadLine();
                 paciente.Triagem.Sintomas.PercaOlfato = perdaOlfato == "s" ? true : false;
 
@@ -216,6 +272,7 @@ namespace ProjHospitalCovid
             }
             return paciente;
         }
+
         public bool ResultadoRetornouPositivo(string resultado)
         {
             if (resultado == "P")
@@ -227,6 +284,7 @@ namespace ProjHospitalCovid
                 return false;
             }
         }
+
         public bool PacienteEstaInternado()
         {
             return true;
