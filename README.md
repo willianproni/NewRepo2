@@ -1,7 +1,5 @@
-# ProjHospitalCovid
-ProjSistemaCovid
 
-Criação de um Projeto para Gerenciamento de um covidário
+<h2>Criação de um Projeto para Gerenciamento de um covidário</h2>
 
 O Sistema possui as seguintes opções
   <li>
@@ -43,6 +41,6 @@ Mostrar Pacientes Internandos
   </li>
   
   <br>
-  <n>Observação: Algums tratamentos de erros não foram feitas, então dependendo o que for digitado pelo usuário podem acabar quebrando o sistema.</n>
+  <b>Observação: Algums tratamentos de erros não foram feitas, então dependendo o que for digitado pelo usuário podem acabar quebrando o sistema.</b>
  
   
