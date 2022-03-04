@@ -14,10 +14,23 @@ namespace ProjHospitalCovid
         public int Saturacao { get; set; }
         public bool PossuiComorbidade { get; set; }
         public int DiasSintomas { get; set; }
+        public Sintomas Sintomas { get; set; }
 
         public Triagem()
         {
+            Sintomas = new Sintomas();
+        }
 
+        public bool PacienteVaiFazerTesteCovid()
+        {
+            if (Sintomas.SintomasCovid())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public string DadosTriagem()

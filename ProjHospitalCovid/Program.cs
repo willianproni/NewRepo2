@@ -48,6 +48,9 @@ namespace ProjHospitalCovid
                         servicos.filapreferencial.ExibirFilaPreferencial();
                         break;
                     case 4:
+                        servicos.listapaciente.MostrarPacientesNaListaPacientes();
+                        break;
+                    case 5:
                         servicos.ChamarPacienteTriagem();
                         break;
                     default:
@@ -62,7 +65,8 @@ namespace ProjHospitalCovid
             Console.WriteLine("\n\t\t[1] - Cadastrar Paciente" +
                               "\n\t\t[2] - Exibir Fila Normal" +
                               "\n\t\t[3] - Exibir Fila Prioridade" +
-                              "\n\t\t[4] - Alta em Paciente" +
+                              "\n\t\t[4] - Mostrar Lista de Pacientes" +
+                              "\n\t\t[5] - Chamar Paciente para Triagem" +
                               "\n\t\t[0] - Fechar Sistema" +
                               "\n\t\t------------------------------------");
             Console.Write("\t\tOpção: ");

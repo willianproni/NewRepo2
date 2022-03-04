@@ -66,8 +66,8 @@ namespace ProjHospitalCovid
 
         public Paciente Pop()
         {
-            Paciente antigo = Head;
-            if (FilaNormalVazia())
+            Paciente antigo = Head; //Armazenar Variavel
+            if (FilaNormalVazia()) 
             {
                 return null;
             }
@@ -77,7 +77,7 @@ namespace ProjHospitalCovid
             }
             else
             {
-                Head = Head.Proximo;
+                Head = Head.Proximo; // Head = Nayron --> Head.Prox = Leonadordo
             }
             antigo.Proximo = null;
             return antigo;

@@ -10,6 +10,7 @@ namespace ProjHospitalCovid
     {
         public FilaNormal filanormal = new FilaNormal();
         public FilaPreferencial filapreferencial = new FilaPreferencial();
+        public ListaPaciente listapaciente = new ListaPaciente();
 
 
         int cont = 1;
@@ -68,15 +69,15 @@ namespace ProjHospitalCovid
                 Paciente pacienteNormal = filanormal.Pop();
                 Console.WriteLine(pacienteNormal.DadosBasicos());
 
-                filanormal.InserirPacienteFilaNormal(EntradaDadosTriagem(pacienteNormal));
+                listapaciente.AdicionarPacienteNaLista(EntradaDadosTriagem(pacienteNormal));
             }
             else
             {
                 Paciente pacientePreferencial = filapreferencial.Pop();
                 Console.WriteLine(pacientePreferencial.DadosBasicos());
 
-                filapreferencial.InserirPacienteFilaPreferencial(EntradaDadosTriagem(pacientePreferencial));
-               cont++;
+                listapaciente.AdicionarPacienteNaLista(EntradaDadosTriagem(pacientePreferencial));
+                cont++;
             }
         }
         public bool ContChamadaTriagem()
@@ -105,18 +106,57 @@ namespace ProjHospitalCovid
             Console.Write("\nBatimentos Cardíacos do Paciente: ");
             paciente.Triagem.Batimentos = int.Parse(Console.ReadLine());
 
-            Console.Write("\nSaturação do Paciente: ");
-            paciente.Triagem.Saturacao = int.Parse(Console.ReadLine());
-            SaturacaoBaixa(paciente.Triagem.Saturacao);
-
             Console.WriteLine("\nPossui Comorbudade: ");
             string possuiComorbidade = Console.ReadLine();
             paciente.Triagem.PossuiComorbidade = possuiComorbidade == "sim" || possuiComorbidade == "s" ? true : false;
 
-            Console.WriteLine("\nDias dos sintomas: ");
-            paciente.Triagem.DiasSintomas = int.Parse(Console.ReadLine());
-            VerificarQuantidadeDiasSintomas(paciente.Triagem.DiasSintomas);
+            Console.Write("\nSaturação do Paciente: ");
+            paciente.Triagem.Saturacao = int.Parse(Console.ReadLine());
+            if (SaturacaoBaixa(paciente.Triagem.Saturacao))
+            {
+                //Internação
+            }
+            else
+            {
+                Console.WriteLine("\nDias dos sintomas: ");
+                paciente.Triagem.DiasSintomas = int.Parse(Console.ReadLine());
+                VerificarQuantidadeDiasSintomas(paciente.Triagem.DiasSintomas);
 
+                Console.WriteLine("--->> Sintomas do paciente <<---");
+
+                Console.Write("[1] -  Falta de Ar ( s/n )");
+                string faltaAr = Console.ReadLine();
+                paciente.Triagem.Sintomas.DorPeito = faltaAr == "s" ? true : false;
+
+                Console.Write("[2] -  Dor no Peito ( s/n )");
+                string dorPeito = Console.ReadLine();
+                paciente.Triagem.Sintomas.DorPeito = dorPeito == "s" ? true : false;
+
+                Console.Write("[3] - Perda Motora ( s/n )");
+                string perdaMotora = Console.ReadLine();
+                paciente.Triagem.Sintomas.PerdaMotora = perdaMotora == "s" ? true : false;
+
+                Console.Write("[4] - Perda Paladar ( s/n )");
+                string perdaPaladar = Console.ReadLine();
+                paciente.Triagem.Sintomas.PercaPaladar = perdaPaladar == "s" ? true : false;
+
+                Console.Write("[5] - Perda Olfato ( s/n )");
+                string perdaOlfato = Console.ReadLine();
+                paciente.Triagem.Sintomas.PercaOlfato = perdaOlfato == "s" ? true : false;
+
+                if (paciente.Triagem.PacienteVaiFazerTesteCovid())
+                {
+                    Console.WriteLine("Realizou o Teste");
+                    Console.Write("Positivo ou Negativo (P ou N)");
+                    string resultado = Console.ReadLine();
+                    paciente.ResultadoTeste = resultado == "P" ? true : false;
+                }
+                else
+                {
+                    Console.WriteLine("Dispensado e Registrado no Sistema");
+                }
+                
+            }
             return paciente;
         }
 
@@ -151,15 +191,15 @@ namespace ProjHospitalCovid
             }
         }
 
-        public void SaturacaoBaixa(int saturacao)
+        public bool SaturacaoBaixa(int saturacao)
         {
             if (saturacao <= 90)
             {
-                Console.WriteLine("Saturação do Paciente está abaixo de 90 ## Emergência #");
+                return true;
             }
             else
             {
-                Console.WriteLine("Saturação acima de 90, Normal");
+                return false;
             }
         }
 

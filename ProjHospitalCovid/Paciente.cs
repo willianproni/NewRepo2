@@ -15,6 +15,7 @@ namespace ProjHospitalCovid
         public int Idade => (DateTime.Now - DataNascimento).Days / 365;
         public Paciente Proximo { get; set; }
         public Triagem Triagem { get; set; }
+        public bool ResultadoTeste { get; set; }
 
         public Paciente()
         {
