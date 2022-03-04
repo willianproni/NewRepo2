@@ -46,7 +46,7 @@ namespace ProjHospitalCovid
                         servicos.ChamarPacienteTriagem();
                         break;
                     case 3:
-                        //servicos.AltaEmPacienteInternado(); //Esta entrando em Loop (Já sei arrumar)!
+                        servicos.DarAltaPaciente();
                         break;
                     case 4:
                         do

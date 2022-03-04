@@ -59,5 +59,65 @@ namespace ProjHospitalCovid
                 } while (paciente != null);
             }
         }
+
+        public Paciente[] ObterTodos()
+        {
+            Paciente[] pacientes = new Paciente[Count()];
+            int count = 0;
+
+            if (ListaPacienteVazia()) return null;
+            else
+            {
+                Paciente paciente = Head;
+                do
+                {
+                    pacientes[count++] = paciente;
+
+                    paciente = paciente.Proximo;
+
+                } while (paciente != null);
+            }
+
+            return pacientes;
+        }
+
+        public int Count()
+        {
+            if (ListaPacienteVazia()) return 0;
+            else
+            {
+                Paciente paciente = Head;
+                int count = 0;
+                do
+                {
+                    count++;
+                    paciente = paciente.Proximo;
+
+                } while (paciente != null);
+                return count;
+            }
+
+        }
+
+        public Paciente[] BuscaPeloCPFNome(string busca)
+        {
+            Paciente[] buscaPaciente = new Paciente[Count()];
+            int countSearch = 0;
+
+            if (ListaPacienteVazia()) return null;
+            else
+            {
+                Paciente paciente = Head;
+                do
+                {
+                    if (paciente.Nome.ToLower().Contains(busca.ToLower()) || paciente.Cpf.Contains(busca))
+                    {
+                        buscaPaciente[countSearch++] = paciente;
+                    }
+                    paciente = paciente.Proximo;
+                } while (paciente != null);
+            }
+            return buscaPaciente;
+        }
     }
 }

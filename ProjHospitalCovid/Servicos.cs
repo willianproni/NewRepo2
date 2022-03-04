@@ -119,7 +119,7 @@ namespace ProjHospitalCovid
                 {
                     if (aux.Cpf.CompareTo(cpf) == 0)
                     {
-                        ListaInternados.Alta(aux);
+                        ListaInternados.RemoverInternação(aux);
                         leitosVerifica.LeitosOcupados++;
                     }
                     else
@@ -290,6 +290,11 @@ namespace ProjHospitalCovid
             return true;
         }
 
+        public bool PacienteTeveAlta()
+        {
+            return false;
+        }
+
         public void PressaoAlta(double pressao)
         {
             if (pressao > 14.9)
@@ -345,6 +350,40 @@ namespace ProjHospitalCovid
                 Console.WriteLine("\tDispensar Paciente, Solicitar Retorno");
                 Console.ReadKey();
                 return false;
+            }
+        }
+
+        public Paciente[] ObterPacientesPorNomeCPF()
+        {
+            listaPaciente.ListaPacienteVazia();
+
+            Console.Write("Digite o nome ou CPF do paciente para que seja localizado: ");
+            Paciente[] pacientes = listaPaciente.BuscaPeloCPFNome(Console.ReadLine());
+
+            if (pacientes == null)
+                Console.WriteLine("Paciente não encontrado");
+            else
+            {
+                foreach (Paciente paciente in pacientes)
+                    if (paciente != null) Console.WriteLine(paciente.DadosCompletos());
+            }
+            return pacientes;
+
+        }
+
+        public Paciente DarAltaPaciente()
+        {
+            Paciente[] pacientes = ObterPacientesPorNomeCPF();
+
+            if (pacientes == null)
+            {
+                return null;
+            }
+            else
+            {
+                pacientes[0].Internado = PacienteTeveAlta();
+                ListaInternados.RemoverInternação(pacientes[0]);
+                return pacientes[0];
             }
         }
     }

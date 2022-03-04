@@ -14,6 +14,7 @@ namespace ProjHospitalCovid.Class
         public string Cpf { get; set; }
         public int Idade => (DateTime.Now - DataNascimento).Days / 365;
         public Paciente Proximo { get; set; }
+        public Paciente Anterior { get; set; }
         public Triagem Triagem { get; set; }
         public bool ResultadoTeste { get; set; }
         public bool Internado { get; set; }
