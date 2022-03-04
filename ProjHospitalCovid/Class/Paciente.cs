@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjHospitalCovid
+namespace ProjHospitalCovid.Class
 {
     internal class Paciente
     {
@@ -16,10 +16,14 @@ namespace ProjHospitalCovid
         public Paciente Proximo { get; set; }
         public Triagem Triagem { get; set; }
         public bool ResultadoTeste { get; set; }
+        public bool Internado { get; set; }
+
+        
 
         public Paciente()
         {
             Triagem = new Triagem();
+            Internado = false;
         }
 
         public Paciente(string nome, char sexo, DateTime dataNascimento, string cpf)
@@ -29,6 +33,7 @@ namespace ProjHospitalCovid
             DataNascimento = dataNascimento;
             Cpf = cpf;
             Triagem = new Triagem();
+            Internado = false;
         }
 
         public Paciente(string nome, char sexo, DateTime dataNascimento, string cpf, Triagem triagem)
@@ -38,6 +43,7 @@ namespace ProjHospitalCovid
             DataNascimento = dataNascimento;
             Cpf = cpf;
             Triagem = new Triagem();
+            Internado = false;
         }
 
         public string DadosBasicos()

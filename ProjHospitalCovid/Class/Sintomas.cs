@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjHospitalCovid
+namespace ProjHospitalCovid.Class
 {
     internal class Sintomas
     {
@@ -21,8 +21,10 @@ namespace ProjHospitalCovid
             if (PerdaMotora) return true;
             if (PercaPaladar) return true;
             if (PercaOlfato) return true;
-
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

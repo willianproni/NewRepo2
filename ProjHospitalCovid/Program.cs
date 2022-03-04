@@ -1,4 +1,5 @@
 ﻿using System;
+using ProjHospitalCovid.Class;
 
 namespace ProjHospitalCovid
 {
@@ -6,7 +7,7 @@ namespace ProjHospitalCovid
     {
         static void Main(string[] args)
         {
-            int opcao, cont = 1;
+            int opcao, cont = 1, lista;
             Servicos servicos = new Servicos();
             Armazenar armazenar = new Armazenar();
 
@@ -28,30 +29,53 @@ namespace ProjHospitalCovid
                         Paciente paciente = servicos.CadastrarPaciente();
                         if (servicos.VerificarPreferenciaDeFila(paciente))
                         {
-                            servicos.filapreferencial.InserirPacienteFilaPreferencial(paciente);
+                            servicos.filaPreferencial.InserirPacienteFilaPreferencial(paciente);
                             Console.WriteLine("Fila Preferencial");
                             Console.ReadKey();
                             Console.Clear();
                         }
                         else
                         {
-                            servicos.filanormal.InserirPacienteFilaNormal(paciente);
+                            servicos.filaNormal.InserirPacienteFilaNormal(paciente);
                             Console.WriteLine("\n\t\t --->> Fila Normal <<---");
                             Console.ReadKey();
                             Console.Clear();
                         }
                         break;
                     case 2:
-                        servicos.filanormal.ExibirFilaNormal();
+                        servicos.ChamarPacienteTriagem();
                         break;
                     case 3:
-                        servicos.filapreferencial.ExibirFilaPreferencial();
-                        break;
-                    case 4:
-                        servicos.listapaciente.MostrarPacientesNaListaPacientes();
-                        break;
-                    case 5:
-                        servicos.ChamarPacienteTriagem();
+                        do
+                        {
+
+                            ;
+                            MenuLista();
+                            lista = int.Parse(Console.ReadLine());
+                            switch (lista)
+                            {
+                                case 1:
+                                    servicos.filaNormal.ExibirFilaNormal();
+                                    break;
+                                case 2:
+                                    servicos.filaPreferencial.ExibirFilaPreferencial();
+                                    break;
+                                case 3:
+                                    servicos.listaPaciente.MostrarPacientesNaListaPacientes();
+                                    break;
+                                case 4:
+                                    servicos.ListaInternados.ExibirPacientesInternados();
+                                    break;
+                                case 5:
+                                    servicos.FilaEsperaInternacao.ExibirPacientesFilaEspera();
+                                    break;
+                                case 6:
+                                    break;
+                                default:
+                                    Console.WriteLine("Digite Uma opção Válida!");
+                                    break;
+                            }
+                        } while (lista != 6);
                         break;
                     default:
                         Console.WriteLine("Opção Inválida!");
@@ -61,13 +85,26 @@ namespace ProjHospitalCovid
         }
         public static void Menu()
         {
+            Console.Clear();
             Console.WriteLine("\t\t-_-_-_-_-_-_-_Covidário_-_-_-_-_-_-_-");
             Console.WriteLine("\n\t\t[1] - Cadastrar Paciente" +
-                              "\n\t\t[2] - Exibir Fila Normal" +
-                              "\n\t\t[3] - Exibir Fila Prioridade" +
-                              "\n\t\t[4] - Mostrar Lista de Pacientes" +
-                              "\n\t\t[5] - Chamar Paciente para Triagem" +
+                              "\n\t\t[2] - Chamar Paciente para Triagem" +
+                              "\n\t\t[3] - Verificar Pacietes por Listas e Filas" +
                               "\n\t\t[0] - Fechar Sistema" +
+                              "\n\t\t------------------------------------");
+            Console.Write("\t\tOpção: ");
+        }
+
+        public static void MenuLista()
+        {
+           
+            Console.WriteLine("\t\t-_-_-_-Verificar andamentos das Listas-_-_-_-\n" +
+                              "\n\t\t[1] - Fila Pacientes Normal" +
+                              "\n\t\t[2] - Fila Pacientes Preferencial" +
+                              "\n\t\t[3] - Lista de Todos os Pacientes" +
+                              "\n\t\t[4] - Mostrar Pacientes Internados" +
+                              "\n\t\t[5] - Fila de espera internação" +
+                              "\n\t\t[6] - Voltar" +
                               "\n\t\t------------------------------------");
             Console.Write("\t\tOpção: ");
         }

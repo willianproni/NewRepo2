@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjHospitalCovid.Class;
 
-namespace ProjHospitalCovid
+namespace ProjHospitalCovid.Filas
 {
-    internal class FilaPreferencial
+    internal class FilaNormal
     {
         public Paciente Head { get; set; }
         public Paciente Tail { get; set; }
+        public FilaNormal Proximo { get; set; }
 
-        public FilaPreferencial()
+        public FilaNormal()
         {
             Head = Tail = null;
         }
 
-        public bool FilaPreferencialVazia()
+        public bool FilaNormalVazia()
         {
             if (Head == null && Tail == null)
             {
@@ -28,26 +30,27 @@ namespace ProjHospitalCovid
             }
         }
 
-        public void InserirPacienteFilaPreferencial(Paciente novopreferencial)
+        public void InserirPacienteFilaNormal(Paciente novonormal)
         {
-            if (FilaPreferencialVazia())
+            if (FilaNormalVazia())
             {
-                Head = novopreferencial;
-                Tail = novopreferencial;
+                Head = novonormal;
+                Tail = novonormal;
             }
             else
             {
-                Tail.Proximo = novopreferencial;
-                Tail = novopreferencial;
+                Tail.Proximo = novonormal;
+                Tail = novonormal;
             }
         }
-        public void ExibirFilaPreferencial()
+
+        public void ExibirFilaNormal()
         {
             Console.Clear();
-            Console.WriteLine("\t\t\t---> Fila Preferencial <---\n");
-            if (FilaPreferencialVazia())
+            Console.WriteLine("\t\t\t---> Fila Normal <---\n");
+            if (FilaNormalVazia())
             {
-                Console.WriteLine("\t\tNenhum Paciente na Fila de Prioridade");
+                Console.WriteLine("\t\tNenhum paciente na Fila Normal");
             }
             else
             {
@@ -64,8 +67,8 @@ namespace ProjHospitalCovid
 
         public Paciente Pop()
         {
-            Paciente antigo = Head;
-            if (FilaPreferencialVazia())
+            Paciente antigo = Head; //Armazenar Variavel
+            if (FilaNormalVazia()) 
             {
                 return null;
             }
@@ -75,11 +78,10 @@ namespace ProjHospitalCovid
             }
             else
             {
-                Head = Head.Proximo;
+                Head = Head.Proximo; // Head = Nayron --> Head.Prox = Leonadordo
             }
             antigo.Proximo = null;
             return antigo;
         }
-
     }
 }
