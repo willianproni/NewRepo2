@@ -38,8 +38,10 @@ namespace ProjHospitalCovid.Filas
             }
             else
             {
+                paciente.Anterior = Tail;
                 Tail.Proximo = paciente;
                 Tail = paciente;
+                OrdenarLeitos();
             }
         }
 
@@ -57,10 +59,64 @@ namespace ProjHospitalCovid.Filas
             } while (paciente != null);
         }
 
-        public void Alta(Paciente aux)
+        public void RemoverInternação(Paciente aux)
         {
+            if (ListaInternadosVazia())
+            {
+                Console.WriteLine("Vazia");
+            }
+            else
+            {
             aux = null;
+            }
+        }
 
+        public void OrdenarLeitos()
+        {
+            for (Paciente referencia = Head; referencia != null; referencia = referencia.Proximo)
+            {
+                for (Paciente comparacao = referencia.Proximo; comparacao != null; comparacao = comparacao.Proximo)
+                {
+                    if (String.Compare(referencia.Nome, comparacao.Nome) > 0)
+                    {
+                        if (referencia.Anterior != null && referencia.Anterior != comparacao)
+                            referencia.Anterior.Proximo = comparacao;
+
+                        if (referencia.Anterior == null && comparacao.Proximo == null && referencia.Proximo == comparacao)
+                        {
+                            referencia.Proximo = comparacao.Proximo;
+                        }
+                        else if (referencia.Proximo != comparacao)
+                        {
+                            comparacao.Anterior.Proximo = comparacao.Proximo;
+                            Tail = comparacao.Anterior;
+                        }
+                        else
+                        {
+                            referencia.Proximo = comparacao.Proximo;
+                        }
+
+                        comparacao.Anterior = referencia.Anterior;
+                        comparacao.Proximo = referencia;
+
+                        referencia.Anterior = comparacao;
+
+
+                        if (referencia.Anterior == null)
+                            Head = referencia;
+
+                        if (comparacao.Proximo == null)
+                            Tail = comparacao;
+
+                        if (referencia.Proximo == null)
+                            Tail = referencia;
+
+                        if (comparacao.Anterior == null)
+                            Head = comparacao;
+
+                    }
+                }
+            }
         }
     }
 }
