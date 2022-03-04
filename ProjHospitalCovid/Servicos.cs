@@ -66,9 +66,12 @@ namespace ProjHospitalCovid
 
         public void ChamarPacienteTriagem()
         {
+            Console.Clear();
             if (filaNormal.FilaNormalVazia() && filaPreferencial.FilaPreferencialVazia())
             {
-                Console.WriteLine("Nenhum Paciente esperando!!");
+                Console.WriteLine("\t\tNenhum Paciente esperando!!");
+                Console.ReadKey();
+                Console.Clear();
             }
             else if (filaPreferencial.FilaPreferencialVazia() || ContChamadaTriagem())
             {
@@ -101,113 +104,115 @@ namespace ProjHospitalCovid
 
         public Paciente EntradaDadosTriagem(Paciente paciente)
         {
-            Console.Write("\nPressão do Paciente: ");
+            Console.Write("\n\tPressão do Paciente: ");
             paciente.Triagem.Pressao = double.Parse(Console.ReadLine());
             PressaoAlta(paciente.Triagem.Pressao);
 
-            Console.Write("\nTemperatura do Paciente: ");
+            Console.Write("\n\tTemperatura do Paciente: ");
             paciente.Triagem.Temperatura = double.Parse(Console.ReadLine());
             FebreAlta(paciente.Triagem.Temperatura);
 
-            Console.Write("\nBatimentos Cardíacos do Paciente: ");
+            Console.Write("\n\tBatimentos Cardíacos do Paciente: ");
             paciente.Triagem.Batimentos = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("\nPossui Comorbudade: ");
+            Console.Write("\n\tPossui Comorbidade: ");
             string possuiComorbidade = Console.ReadLine();
             paciente.Triagem.PossuiComorbidade = possuiComorbidade == "sim" || possuiComorbidade == "s" ? true : false;
 
-            Console.Write("\nSaturação do Paciente: ");
+            Console.Write("\n\tSaturação do Paciente: ");
             paciente.Triagem.Saturacao = int.Parse(Console.ReadLine());
             SaturacaoBaixa(paciente.Triagem.Saturacao);
 
 
-            Console.WriteLine("\nDias dos sintomas: ");
+            Console.Write("\n\tDias dos sintomas: ");
             paciente.Triagem.DiasSintomas = int.Parse(Console.ReadLine());
-            VerificarQuantidadeDiasSintomas(paciente.Triagem.DiasSintomas);
-
-            Console.WriteLine("--->> Sintomas do paciente <<---");
-
-            Console.Write("[1] -  Falta de Ar ( s/n )");
-            string faltaAr = Console.ReadLine();
-            paciente.Triagem.Sintomas.FaltaAr = faltaAr == "s" ? true : false;
-
-            Console.Write("[2] -  Dor no Peito ( s/n )");
-            string dorPeito = Console.ReadLine();
-            paciente.Triagem.Sintomas.DorPeito = dorPeito == "s" ? true : false;
-
-            Console.Write("[3] - Perda Motora ( s/n )");
-            string perdaMotora = Console.ReadLine();
-            paciente.Triagem.Sintomas.PerdaMotora = perdaMotora == "s" ? true : false;
-
-            Console.Write("[4] - Perda Paladar ( s/n )");
-            string perdaPaladar = Console.ReadLine();
-            paciente.Triagem.Sintomas.PercaPaladar = perdaPaladar == "s" ? true : false;
-
-            Console.Write("[5] - Perda Olfato ( s/n )");
-            string perdaOlfato = Console.ReadLine();
-            paciente.Triagem.Sintomas.PercaOlfato = perdaOlfato == "s" ? true : false;
-
-            if (SaturacaoBaixa(paciente.Triagem.Saturacao))
+            if (VerificarQuantidadeDiasSintomas(paciente.Triagem.DiasSintomas))
             {
-                Console.WriteLine("Paciente apresenta estado Saturação baixo, Precisa ser Internado");
-                if (leitosVerifica.PossuiVaga())
-                {
-                    Console.WriteLine("Leito Disponivel!!");
-                    leitosVerifica.LeitosOcupados++;
-                    paciente.Internado = PacienteEstaInternado();
-                    ListaInternados.InserirPacienteInternacao(paciente);
-                    Console.WriteLine("Paciente Internado");
-                    Console.ReadKey();
-                }
-                else
-                {
-                    Console.WriteLine("Leitos Cheios, Paciente Adicionado em Uma fila de Espera");
-                    FilaEsperaInternacao.AdicionarPacienteFilaEspera(paciente);
-                    Console.ReadKey();
-                }
-            }
+                Console.WriteLine("--->> Sintomas do paciente <<---");
 
-            else if (paciente.Triagem.PacienteVaiFazerTesteCovid())
-            {
-                Console.WriteLine("Realizou o Teste");
-                Console.Write("Positivo ou Negativo (P ou N)");
-                string resultado = Console.ReadLine().ToUpper();
-                if (ResultadoRetornouPositivo(resultado))
+                Console.Write("[1] -  Falta de Ar ( s/n ): ");
+                string faltaAr = Console.ReadLine();
+                paciente.Triagem.Sintomas.FaltaAr = faltaAr == "s" ? true : false;
+
+                Console.Write("[2] -  Dor no Peito ( s/n ): ");
+                string dorPeito = Console.ReadLine();
+                paciente.Triagem.Sintomas.DorPeito = dorPeito == "s" ? true : false;
+
+                Console.Write("[3] - Perda Motora ( s/n ): ");
+                string perdaMotora = Console.ReadLine();
+                paciente.Triagem.Sintomas.PerdaMotora = perdaMotora == "s" ? true : false;
+
+                Console.Write("[4] - Perda Paladar ( s/n ): ");
+                string perdaPaladar = Console.ReadLine();
+                paciente.Triagem.Sintomas.PercaPaladar = perdaPaladar == "s" ? true : false;
+
+                Console.Write("[5] - Perda Olfato ( s/n ): ");
+                string perdaOlfato = Console.ReadLine();
+                paciente.Triagem.Sintomas.PercaOlfato = perdaOlfato == "s" ? true : false;
+
+                if (SaturacaoBaixa(paciente.Triagem.Saturacao))
                 {
-                    Console.WriteLine("O paciente vai ser Internado? : ");
-                    char internar = char.Parse(Console.ReadLine().ToUpper());
-                    if (internar == 'S')
+                    Console.WriteLine("Paciente apresenta estado Saturação baixo, Precisa ser Internado");
+                    if (leitosVerifica.PossuiVaga())
                     {
-                        if (leitosVerifica.PossuiVaga())
+                        Console.WriteLine("Leito Disponivel!!");
+                        leitosVerifica.LeitosOcupados++;
+                        paciente.Internado = PacienteEstaInternado();
+                        ListaInternados.InserirPacienteInternacao(paciente);
+                        Console.WriteLine("Paciente Internado");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Leitos Cheios, Paciente Adicionado em Uma fila de Espera");
+                        FilaEsperaInternacao.AdicionarPacienteFilaEspera(paciente);
+                        Console.ReadKey();
+                    }
+                }
+
+                else if (paciente.Triagem.PacienteVaiFazerTesteCovid())
+                {
+                    Console.WriteLine("Realizou o Teste");
+                    Console.Write("Positivo ou Negativo (P ou N)");
+                    string resultado = Console.ReadLine().ToUpper();
+                    if (ResultadoRetornouPositivo(resultado))
+                    {
+                        Console.WriteLine("O paciente vai ser Internado? : ");
+                        char internar = char.Parse(Console.ReadLine().ToUpper());
+                        if (internar == 'S')
                         {
-                            Console.WriteLine("Leito Disponivel!!");
-                            leitosVerifica.LeitosOcupados++;
-                            paciente.Internado = PacienteEstaInternado();
-                            ListaInternados.InserirPacienteInternacao(paciente);
-                            Console.WriteLine("Paciente Internado");
-                            Console.ReadKey();
+                            if (leitosVerifica.PossuiVaga())
+                            {
+                                Console.WriteLine("Leito Disponivel!!");
+                                leitosVerifica.LeitosOcupados++;
+                                paciente.Internado = PacienteEstaInternado();
+                                ListaInternados.InserirPacienteInternacao(paciente);
+                                Console.WriteLine("Paciente Internado");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Leitos Cheios, Paciente Adicionado em Uma fila de Espera");
+                                FilaEsperaInternacao.AdicionarPacienteFilaEspera(paciente);
+                                Console.ReadKey();
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("Leitos Cheios, Paciente Adicionado em Uma fila de Espera");
-                            FilaEsperaInternacao.AdicionarPacienteFilaEspera(paciente);
+                            Console.WriteLine("O paciente vai Cumprir quarentena de 15 Dias");
                             Console.ReadKey();
                         }
                     }
                     else
                     {
-                        Console.WriteLine("O paciente vai Cumprir quarentena de 15 Dias");
+                        Console.WriteLine("Teste de Negativo, Paciente Dispenasado e Registrado");
                         Console.ReadKey();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Teste de Negativo, Paciente Dispenasado e Registrado");
+                    Console.WriteLine("Dispensado e Registrado no Sistema");
                 }
-            }
-            else
-            {
-                Console.WriteLine("Dispensado e Registrado no Sistema");
             }
             return paciente;
         }
@@ -231,11 +236,11 @@ namespace ProjHospitalCovid
         {
             if (pressao > 14.9)
             {
-                Console.WriteLine("Pressão do Paciente está alta");
+                Console.WriteLine("\tPressão do Paciente está alta");
             }
             else
             {
-                Console.WriteLine("Pressão do Paciente está Normal");
+                Console.WriteLine("\tPressão do Paciente está Normal");
             }
         }
 
@@ -243,15 +248,15 @@ namespace ProjHospitalCovid
         {
             if (temperatura < 37.3)
             {
-                Console.WriteLine("Paciente está sem Febre");
+                Console.WriteLine("\tPaciente está sem Febre");
             }
             else if (temperatura >= 37.3 && temperatura <= 37.8)
             {
-                Console.WriteLine("Paciente está com Febre");
+                Console.WriteLine("\tPaciente está com Febre");
             }
             else if (temperatura > 37.8)
             {
-                Console.WriteLine("Paciente está com Febre Alta");
+                Console.WriteLine("\tPaciente está com Febre Alta");
             }
             {
 
@@ -270,15 +275,18 @@ namespace ProjHospitalCovid
             }
         }
 
-        public void VerificarQuantidadeDiasSintomas(int diasSintomas)
+        public bool VerificarQuantidadeDiasSintomas(int diasSintomas)
         {
             if (diasSintomas >= 3)
             {
-                Console.WriteLine("Prosseguir com o Teste");
+                Console.WriteLine("\tProsseguir com o Teste");
+                return true;
             }
             else
             {
-                Console.WriteLine("Dispensar Paciente, Solicitar Retorno");
+                Console.WriteLine("\tDispensar Paciente, Solicitar Retorno");
+                Console.ReadKey();
+                return false;
             }
         }
     }

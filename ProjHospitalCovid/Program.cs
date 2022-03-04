@@ -30,14 +30,14 @@ namespace ProjHospitalCovid
                         if (servicos.VerificarPreferenciaDeFila(paciente))
                         {
                             servicos.filaPreferencial.InserirPacienteFilaPreferencial(paciente);
-                            Console.WriteLine("Fila Preferencial");
+                            Console.WriteLine("\n\t\t Adicionado Fila Preferencial <<---");
                             Console.ReadKey();
                             Console.Clear();
                         }
                         else
                         {
                             servicos.filaNormal.InserirPacienteFilaNormal(paciente);
-                            Console.WriteLine("\n\t\t --->> Fila Normal <<---");
+                            Console.WriteLine("\n\t\t Adicionado Fila Normal <<---");
                             Console.ReadKey();
                             Console.Clear();
                         }
@@ -48,8 +48,6 @@ namespace ProjHospitalCovid
                     case 3:
                         do
                         {
-
-                            ;
                             MenuLista();
                             lista = int.Parse(Console.ReadLine());
                             switch (lista)
@@ -97,7 +95,7 @@ namespace ProjHospitalCovid
 
         public static void MenuLista()
         {
-           
+
             Console.WriteLine("\t\t-_-_-_-Verificar andamentos das Listas-_-_-_-\n" +
                               "\n\t\t[1] - Fila Pacientes Normal" +
                               "\n\t\t[2] - Fila Pacientes Preferencial" +

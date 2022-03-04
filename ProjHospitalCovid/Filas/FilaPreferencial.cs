@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjHospitalCovid.Class;
 
-namespace ProjHospitalCovid.Filas
+namespace ProjHospitalCovid
 {
     internal class FilaPreferencial
     {
